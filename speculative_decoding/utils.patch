@@ -1,0 +1,16 @@
+@@ -92,6 +92,7 @@
+ if is_accelerate_available():
+     from accelerate.hooks import AlignDevicesHook, add_hook_to_module
+ 
++import logging
+ 
+ @dataclass
+ class GenerateDecoderOnlyOutput(ModelOutput):
+@@ -4415,6 +4416,7 @@
+             # is no match.
+ 
+             # 4.1. Get the valid continuation, after the matching tokens
++            logging.critical(f"[PROFILE] valid_tokens {valid_tokens.shape[1]} , n_matches {n_matches}")
+             input_ids = torch.cat((input_ids, valid_tokens), dim=-1)
+             if streamer is not None:
+                 streamer.put(valid_tokens.cpu())
